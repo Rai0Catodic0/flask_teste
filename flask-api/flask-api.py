@@ -1,3 +1,4 @@
+from .models import User
 from random import randint
 from flask import Flask
 from flask import request
@@ -51,3 +52,14 @@ def ordenar():
             return '404 bad_request'
     lista = str(quicksort(lista))
     return lista
+
+    @app.route('/user', methods=['GET', 'POST'])
+    def add_user():
+        '''adiciona usuario'''
+        last_name = request.args.get('l_name', type=str)
+        first_name = request.args.get('f_name', type=str)
+        password = request.args.get('password', type=str)
+        email = request.args.get('email', type=str)
+        user = User(last_name=last_name,first_name=first_name,password=password,email=email)
+        user.save()
+        return f"last_name = {last_name} first_name = {first_name}, password = {password}, email = {email}"
