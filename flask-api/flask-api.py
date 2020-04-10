@@ -49,7 +49,7 @@ def ordenar():
         try:
             lista[i] = int(lista[i])
         except ValueError:
-            return '404 bad_request'
+            return '200'
     lista = str(quicksort(lista))
     return lista
 
@@ -60,6 +60,10 @@ def ordenar():
         first_name = request.args.get('f_name', type=str)
         password = request.args.get('password', type=str)
         email = request.args.get('email', type=str)
+        if email == '' or last_name == '' or first_name = '' or password = '':
+            return '200'
+        if '@' not in email:
+            return '200'
         user = User(last_name=last_name,first_name=first_name,password=password,email=email)
         user.save()
         return f"last_name = {last_name} first_name = {first_name}, password = {password}, email = {email}"
